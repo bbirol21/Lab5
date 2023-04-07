@@ -1,13 +1,13 @@
 package aircrafts;
 
-public abstract class FueledAircraft extends Aircraft implements Flyable{
+public abstract class FueledAircraft extends Aircraft implements Flyable, Refuelable{
 	
 	protected double fuelTankCapacity;
 	protected double fuelAmount;
 	protected double fueltoRangeRatio;
 	
 
-	public FueledAircraft(String brandAndModel, double aircraftPrice, double fuelTankCapacity, double fuelAmount, double fueltoRangeRatio) {
+	public FueledAircraft(String brandAndModel, double aircraftPrice, double fuelTankCapacity, double fuelAmount, double fueltoRangeRatio) {         
 		super(brandAndModel, aircraftPrice);
 		
 		if (fuelTankCapacity < 10) {
@@ -81,6 +81,26 @@ public abstract class FueledAircraft extends Aircraft implements Flyable{
 		double currentRange = fueltoRangeRatio * fuelAmount;
 		return super.toString() + "Max Range: " + maxRange + "\n" + "Current Fuel Level: " + fuelAmount + " L" + "\n" 
 				+ "Current Range: " + currentRange + "\n";
+	}
+	
+	public void refuel(double addedFuelAmount) {
+		if (addedFuelAmount <= 0) {
+			System.out.println("Fly Fueled Aircraft input is invalid !!" + "\n");
+			return;
+		}
+		else if (fuelAmount + addedFuelAmount > fuelTankCapacity) {
+			fuelAmount = fuelTankCapacity;
+			System.out.println("Fueled Aircraft " + this.getBrandAndModel()+ "'s tank is refueled! Now " + fuelAmount + " L of fuel is present! " );
+			System.out.println("Fueled Aircraft " + this.getBrandAndModel() + "'s Current Range : " + (fuelAmount * fueltoRangeRatio) + "\n" );
+		}
+		else if (fuelAmount + addedFuelAmount < fuelTankCapacity) {
+			fuelAmount += addedFuelAmount;
+			System.out.println("Fueled Aircraft " + this.getBrandAndModel()+ "'s tank is refueled! Now " + fuelAmount + " L of fuel is present! " );
+			System.out.println("Fueled Aircraft " + this.getBrandAndModel() + "'s Current Range : " + (fuelAmount * fueltoRangeRatio) + "\n" );
+		}
+		
+
+		
 	}
 	
 	

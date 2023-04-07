@@ -17,6 +17,29 @@ package work;
 import aircrafts.*;
 
 public class Test {
+	
+	private static void initiateFlyProcess (Aircraft a, double distance) {
+		String aircraftType = a instanceof Plane ? "Plane" : a instanceof Glider ? "Glider" : "unknown type of:" + a.getClass().getSimpleName();;
+	    System.out.println("Type: " + aircraftType + ", Age: " + a.getAge());
+
+	    if (a.getAge() >= a.MAX_AGE){
+	      System.out.println("The aircraft is too old to fly");
+	      return;
+	    }
+
+	    a.fly(distance);
+
+	    double ageIncrease;
+	    if (a instanceof Plane) {
+	      ageIncrease = 2 * distance / 100;
+	    } else if (a instanceof Glider) {
+	      ageIncrease = 1.5 * distance / 100;
+	    } else {
+	      return;
+	    }
+	    a.setAge(a.getAge()+ageIncrease);
+	    System.out.println("Type: " + aircraftType + ", Age before flight: " + a.getAge() + ", Age after flight: " + (a.getAge() + ageIncrease));
+	}
 
 	public static void main(String[] args) {
 
@@ -51,8 +74,27 @@ public class Test {
 
         cessna172.fly(100);
         
-//        double a = 12.1234;
-//        System.out.printf("%,.2f", a);
+        System.out.println();
+        System.out.println("\t============ INLAB TEST CODE =============");
+        Plane airbus_a333 = new Plane("Airbus A333", 720_000, 700, 200, 8);
+        Glider gp_15 = new Glider("gp_15", 200_000, airbus_a333);
+        boeing737.refuel(80);
+        cessna172.refuel(5);
+        da42.refuel(50);
+        airbus_a333.refuel(50);
+        
+        
+        
+        
+        
+        System.out.println("\n***FLY GP_15***");
+        for (int i = 0; i < 8; i++) {
+        initiateFlyProcess(gp_15, 100);
+        }
+        System.out.println("\n***FLY AIRBUS_A333***");
+        for (int i = 0; i < 6; i++) {
+        initiateFlyProcess(airbus_a333, 100);
+        }
     
 	}
 

@@ -6,7 +6,11 @@ public class Glider extends Aircraft implements Flyable{
 
 	private static final ArrayList<Glider> gliderList = new ArrayList<Glider>();
 	private Plane helperPlane;
+	private static final double MAX_AGE = 20;
 	
+	public double getMAX_AGE() {
+		return MAX_AGE;
+	}
 
 	public Glider(String brandAndModel, double aircraftPrice, Plane helperPlane) {
 		super(brandAndModel, aircraftPrice);
